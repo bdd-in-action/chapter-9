@@ -1,23 +1,27 @@
 package com.wakaleo.bddinaction.chapter9.flightstatus.model;
 
-import java.io.Serializable;
+//import com.fasterxml.jackson.annotation.JsonFormat;
+import com.google.common.collect.ImmutableList;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
+
+@XmlRootElement
 public class Flight {
 
-    private final long id;
-    private final String flightNumber;
-    private final String departure;
-    private final String destination;
+    private String flightNumber;
+    private String departure;
+    private String destination;
+    private String time;
 
-    public Flight(long id, String flightNumber, String departure, String destination) {
-        this.id = id;
+    public Flight() {
+    }
+
+    public Flight(String flightNumber, String departure, String destination, String time) {
         this.flightNumber = flightNumber;
         this.departure = departure;
         this.destination = destination;
-    }
-
-    public long getId() {
-        return id;
+        this.time = time;
     }
 
     public String getFlightNumber() {
@@ -31,4 +35,35 @@ public class Flight {
     public String getDestination() {
         return destination;
     }
+
+    public String getTime() { return time; }
+
+    public static FlightBuilder number(String flightNumber) {
+        return new FlightBuilder(flightNumber);
+    }
+
+    public static class FlightBuilder {
+        String departure;
+        String destination;
+        String flightNumber;
+        List<DayOfTheWeek> departureDays;
+
+        public FlightBuilder(String flightNumber) {
+            this.flightNumber = flightNumber;
+        }
+
+        public FlightBuilder from(String departure) {
+            this.departure = departure;
+            return this;
+        }
+
+        public FlightBuilder to(String destination) {
+            this.destination = destination;
+            return this;
+        }
+        public Flight at(String departureTime) {
+            return new Flight(flightNumber, departure, destination, departureTime);
+        }
+    }
+
 }
