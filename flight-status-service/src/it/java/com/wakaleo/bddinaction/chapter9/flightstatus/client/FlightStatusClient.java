@@ -47,4 +47,13 @@ public class FlightStatusClient {
 
         return new ArrayList(Arrays.asList(flights));
     }
+
+    public String findByDepartureCityAndTypeInJson(String departure, FlightType type) {
+        Client client = ClientBuilder.newClient();
+        WebTarget webTarget = client.target(BASE_URL)
+                .path("from/" + departure)
+                .queryParam("flightType", type);
+        return webTarget.request().buildGet().invoke(String.class);
+    }
+
 }

@@ -6,6 +6,9 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.json.JSONException;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 
 import java.util.List;
 
@@ -14,8 +17,13 @@ public class ScheduledFlightsSteps {
     String departure;
     List retrievedFlights;
 
+    @Given("^the following flights have been scheduled")
+    public void setup_scheduled_flights(DataTable testData) {
+        // Setup test data
+    }
+
     @Given("^I want to know the flights out of (.*)$")
-    public void I_want_to_check_the_flights_out_o_(String departure) throws Throwable {
+    public void I_want_to_check_the_flights_out_of(String departure) throws Throwable {
         this.departure = departure;
     }
 
@@ -25,10 +33,22 @@ public class ScheduledFlightsSteps {
         retrievedFlights = client.findByDepartureCityAndType(departure, flightType);
     }
 
+    @When("^I request the (.*) flights in JSON form$")
+    public void request_flights_of_type_in_json(FlightType flightType) throws Throwable {
+        FlightStatusClient client = new FlightStatusClient();
+        receivedJsonData = client.findByDepartureCityAndTypeInJson(departure, flightType);
+    }
+
     @Then("^I should see the following flights:$")
     public void I_should_see_the_following_flights(DataTable expectedFlights) throws Throwable {
         expectedFlights.diff(retrievedFlights);
     }
 
+    protected String receivedJsonData;
 
+    @Then("^I should receive the following flights:$")
+    public void should_receive_json_data(String expectedJsonData) throws JSONException {
+        System.out.println(receivedJsonData);
+        JSONAssert.assertEquals(expectedJsonData, receivedJsonData, JSONCompareMode.LENIENT);
+    }
 }
