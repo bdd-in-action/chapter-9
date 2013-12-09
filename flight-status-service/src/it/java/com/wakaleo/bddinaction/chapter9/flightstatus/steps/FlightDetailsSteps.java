@@ -33,16 +33,16 @@ public class FlightDetailsSteps {
         flightDetails.diff(newArrayList(matchingFlight));
     }
 
-    @When("^I request the details about this flight in JSON format$")
-    public void request_details_in_json_format() {
-        receivedJsonData = client.findByFlightNumberInJsonFormat(flightNumber);
-    }
+String receivedJsonData;
 
-    protected String receivedJsonData;
+@When("^I request the details about this flight in JSON format$")
+public void request_details_in_json_format() {
+    receivedJsonData = client.findByFlightNumberInJson(flightNumber);
+}
 
-    @Then("^I should receive:$")
-    public void should_receive_json_data(String expectedJsonData) throws JSONException {
-        JSONAssert.assertEquals(expectedJsonData, receivedJsonData, JSONCompareMode.LENIENT);
-    }
+@Then("^I should receive:$")
+public void should_receive_json_data(String expectedJsonData) throws JSONException {
+    JSONAssert.assertEquals(expectedJsonData, receivedJsonData, JSONCompareMode.LENIENT);
+}
 
 }

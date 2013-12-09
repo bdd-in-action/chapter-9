@@ -24,7 +24,7 @@ public class FlightStatusClient {
         return webTarget.request().buildGet().invoke(Flight.class);
     }
 
-    public String findByFlightNumberInJsonFormat(String flightNumber) {
+    public String findByFlightNumberInJson(String flightNumber) {
         Client client = ClientBuilder.newClient();
         WebTarget webTarget = client.target(BASE_URL).path(flightNumber);
         return webTarget.request().buildGet().invoke(String.class);

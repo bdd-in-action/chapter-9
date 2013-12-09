@@ -48,7 +48,6 @@ public class ScheduledFlightsSteps {
 
     @Then("^I should receive the following flights:$")
     public void should_receive_json_data(String expectedJsonData) throws JSONException {
-        System.out.println(receivedJsonData);
         JSONAssert.assertEquals(expectedJsonData, receivedJsonData, JSONCompareMode.LENIENT);
     }
 }
