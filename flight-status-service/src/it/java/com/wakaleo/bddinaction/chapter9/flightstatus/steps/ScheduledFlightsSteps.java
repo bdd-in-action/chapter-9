@@ -1,6 +1,7 @@
 package com.wakaleo.bddinaction.chapter9.flightstatus.steps;
 
 import com.wakaleo.bddinaction.chapter9.flightstatus.client.FlightStatusClient;
+import com.wakaleo.bddinaction.chapter9.flightstatus.client.JerseyFlightStatusClient;
 import com.wakaleo.bddinaction.chapter9.flightstatus.model.FlightType;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
@@ -29,13 +30,13 @@ public class ScheduledFlightsSteps {
 
     @When("^I request the (.*) flights$")
     public void I_request_flights_of_type(FlightType flightType) throws Throwable {
-        FlightStatusClient client = new FlightStatusClient();
+        FlightStatusClient client = new JerseyFlightStatusClient();
         retrievedFlights = client.findByDepartureCityAndType(departure, flightType);
     }
 
     @When("^I request the (.*) flights in JSON form$")
     public void request_flights_of_type_in_json(FlightType flightType) throws Throwable {
-        FlightStatusClient client = new FlightStatusClient();
+        FlightStatusClient client = new JerseyFlightStatusClient();
         receivedJsonData = client.findByDepartureCityAndTypeInJson(departure, flightType);
     }
 

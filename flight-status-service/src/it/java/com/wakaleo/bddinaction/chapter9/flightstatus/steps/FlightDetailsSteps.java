@@ -1,6 +1,7 @@
 package com.wakaleo.bddinaction.chapter9.flightstatus.steps;
 
 import com.wakaleo.bddinaction.chapter9.flightstatus.client.FlightStatusClient;
+import com.wakaleo.bddinaction.chapter9.flightstatus.client.JerseyFlightStatusClient;
 import com.wakaleo.bddinaction.chapter9.flightstatus.model.Flight;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
@@ -16,7 +17,7 @@ public class FlightDetailsSteps {
 
     String flightNumber;
     Flight matchingFlight;
-    FlightStatusClient client = new FlightStatusClient();
+    FlightStatusClient client = new JerseyFlightStatusClient();
 
     @Given("^I need to know the details of flight number (.*)$")
     public void the_flight_number(String flightNumber) throws Throwable {
