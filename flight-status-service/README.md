@@ -13,7 +13,7 @@ mvn clean package tomcat:run
 You can check that the web services are available by using the following URL:
 
 -----
-http://localhost:8080/rest/flights/status
+http://localhost:8080/flightstatus-service/rest/flights/status
 -----
 
 
